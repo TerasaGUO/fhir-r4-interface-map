@@ -1,0 +1,17 @@
+{
+  "resourceType": "CapabilityStatement",
+  "status": "active",
+  "date": "2026-11-20",
+  "kind": "instance",
+  "implementation": {"description": "Interface Map synthetic demonstration"},
+  "title": "Registry demonstration",
+  "fhirVersion": "4.0.1",
+  "format": ["json"],
+  "rest": [{
+    "mode": "server",
+    "resource": [{
+      "type": "Organization",
+      "interaction": [{"code": "read"}]
+    }]
+  }]
+}
