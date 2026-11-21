@@ -6,6 +6,17 @@ Generate OpenAPI 3.0.3 JSON from the routes a FHIR R4 server advertises. A nativ
 
 An API gateway engineer supplies a FHIR base URL. The exporter reads its JSON CapabilityStatement at `/metadata` and creates paths, HTTP methods, FHIR media types, input parameters and response envelopes. The generated document includes a report of capabilities requiring manual review.
 
+## Deploy with IPM
+
+Clone the repository or mount it on the IRIS host. With [IPM](https://github.com/intersystems/ipm) installed, run this in the target application namespace. Replace the path with the server-side checkout directory containing `module.xml`.
+
+```objectscript
+zpm "load /opt/fhir-interface-map"
+write ##class(InterfaceMap.Exporter).Generate("https://example.org/fhir","/tmp/openapi.json","","/opt/fhir-interface-map/demo/r4/metadata")
+```
+
+The included offline sample returns `2`. For a live HTTPS endpoint, configure the TLS profile described below. Once your registry carries this module, install it there with `zpm "install fhir-r4-interface-map"`.
+
 ## Install on IRIS
 
 1. Copy the repository to an IRIS-readable directory such as `/opt/fhir-interface-map`.
@@ -13,7 +24,7 @@ An API gateway engineer supplies a FHIR base URL. The exporter reads its JSON Ca
 
 ```objectscript
 set app="/opt/fhir-interface-map"
-set sc=$system.OBJ.Load(app_"/src/InterfaceMap.Exporter.cls","ck")
+set sc=$system.OBJ.Load(app_"/src/InterfaceMap/Exporter.cls","ck")
 if $system.Status.IsError(sc) do $system.Status.DisplayError(sc)
 write ##class(InterfaceMap.Exporter).Generate("https://example.org/fhir","/tmp/openapi.json","",app_"/demo/r4/metadata")
 ```

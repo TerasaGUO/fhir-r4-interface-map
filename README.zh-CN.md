@@ -6,6 +6,17 @@
 
 配置 API 网关时，输入 FHIR 服务的基址，工具会从 `/metadata` 读取 JSON 格式的 CapabilityStatement，生成路径、HTTP 方法、FHIR 媒体类型、输入参数和响应的基本结构。输出文件还会列出需要人工核对的能力声明。
 
+## 使用 IPM 部署
+
+将仓库克隆或挂载到 IRIS 主机。安装 [IPM](https://github.com/intersystems/ipm) 后，在目标应用命名空间执行以下命令。请将示例路径换成 IRIS 主机上包含 `module.xml` 的仓库目录。
+
+```objectscript
+zpm "load /opt/fhir-interface-map"
+write ##class(InterfaceMap.Exporter).Generate("https://example.org/fhir","/tmp/openapi.json","","/opt/fhir-interface-map/demo/r4/metadata")
+```
+
+仓库中的离线示例应返回 `2`。使用在线 HTTPS 端点时，请按下文配置 TLS。包发布到所用注册表后，可执行 `zpm "install fhir-r4-interface-map"` 安装。
+
 ## 安装到 IRIS
 
 1. 将仓库复制到 IRIS 可读的位置，例如 `/opt/fhir-interface-map`。
@@ -13,7 +24,7 @@
 
 ```objectscript
 set app="/opt/fhir-interface-map"
-set sc=$system.OBJ.Load(app_"/src/InterfaceMap.Exporter.cls","ck")
+set sc=$system.OBJ.Load(app_"/src/InterfaceMap/Exporter.cls","ck")
 if $system.Status.IsError(sc) do $system.Status.DisplayError(sc)
 write ##class(InterfaceMap.Exporter).Generate("https://example.org/fhir","/tmp/openapi.json","",app_"/demo/r4/metadata")
 ```

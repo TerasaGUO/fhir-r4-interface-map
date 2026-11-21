@@ -27,7 +27,7 @@ def run():
             base = f"http://127.0.0.1:{server.server_port}/r4"
             output = Path(folder) / "generated.json"
             scripts = [
-                f'set sc=$system.OBJ.Load({objectscript_string(ROOT / "src/InterfaceMap.Exporter.cls")},"ck")',
+                f'set sc=$system.OBJ.Load({objectscript_string(ROOT / "src/InterfaceMap/Exporter.cls")},"ck")',
                 'if $system.Status.IsError(sc) zhalt 2',
                 'write ##class(InterfaceMap.Exporter).Generate(' + ",".join(
                     objectscript_string(arg) for arg in (base, output, ROOT)) + '),!',
