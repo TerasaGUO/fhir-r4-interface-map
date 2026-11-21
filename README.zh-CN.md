@@ -15,7 +15,7 @@ zpm "load /opt/fhir-interface-map"
 write ##class(InterfaceMap.Exporter).Generate("https://example.org/fhir","/tmp/openapi.json","","/opt/fhir-interface-map/demo/r4/metadata")
 ```
 
-仓库中的离线示例应返回 `2`。使用在线 HTTPS 端点时，请按下文配置 TLS。包发布到所用注册表后，可执行 `zpm "install fhir-r4-interface-map"` 安装。
+仓库中的离线示例应返回 `2`。使用在线 HTTPS 端点时，请按下文配置 TLS。包发布到所用注册表后，可执行 `zpm "install fhir-r4-interface-map 1.0.0"` 安装。
 
 ## 安装到 IRIS
 

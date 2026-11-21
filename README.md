@@ -15,7 +15,7 @@ zpm "load /opt/fhir-interface-map"
 write ##class(InterfaceMap.Exporter).Generate("https://example.org/fhir","/tmp/openapi.json","","/opt/fhir-interface-map/demo/r4/metadata")
 ```
 
-The included offline sample returns `2`. For a live HTTPS endpoint, configure the TLS profile described below. Once your registry carries this module, install it there with `zpm "install fhir-r4-interface-map"`.
+The included offline sample returns `2`. For a live HTTPS endpoint, configure the TLS profile described below. Once your registry carries this module, install it there with `zpm "install fhir-r4-interface-map 1.0.0"`.
 
 ## Install on IRIS
 
